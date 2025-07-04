@@ -1,6 +1,8 @@
+pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.SystemTray
 import "modules"
 
 PanelWindow {
@@ -19,6 +21,8 @@ PanelWindow {
     implicitHeight: 30
 
     color: Colors.background
+    
+    property var modelData: SystemTray.items.values
 
     Rectangle {
         id: dashboard
@@ -49,7 +53,14 @@ PanelWindow {
                 Clock {}
             }
             WrapperManager {
-                SystemTray {}
+                Repeater {
+                    model: root.modelData
+                    SysTrayItem {
+                        required property SystemTrayItem modelData
+                        bar: root
+                        item: modelData
+                    }
+                }
             }
         }
     }
