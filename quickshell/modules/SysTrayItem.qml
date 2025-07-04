@@ -7,6 +7,11 @@ import Qt5Compat.GraphicalEffects
 
 MouseArea {
     id: root
+    
+    Rectangle {
+        color: "red"
+        anchors.fill: parent
+    }
 
     required property var bar
     required property SystemTrayItem item
