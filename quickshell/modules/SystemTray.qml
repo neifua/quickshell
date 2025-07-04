@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Hyprland
 import Quickshell.Services.SystemTray
 import Quickshell.Wayland
 import Quickshell.Widgets
@@ -16,7 +15,7 @@ Item {
     RowLayout {
         id: rowLayout
 
-        anchors.fill: parent
+        anchors.centerIn: parent
         spacing: 15
 
         Repeater {
@@ -28,9 +27,6 @@ Item {
                 bar: root.bar
                 item: modelData
             }
-
         }
-
     }
-
 }
