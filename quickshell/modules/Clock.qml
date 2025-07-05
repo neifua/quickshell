@@ -1,8 +1,20 @@
+pragma Singleton
+
 import Quickshell
 import QtQuick
-import "root:/utils"
 
-Text {
-    text: SystemInfo.time
-    color: Colors.text
+Singleton {
+    id: root
+
+    readonly property string time: {
+        if (clock.date) {
+            return Qt.formatDateTime(clock.date, "ddd, MMM dd yyyy - hh:mm AP");
+        }
+        return "";
+    }
+
+    SystemClock {
+        id: clock
+        precision: SystemClock.Seconds
+    }
 }

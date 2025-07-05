@@ -1,8 +1,7 @@
-pragma ComponentBehavior: Bound
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Services.SystemTray
 import "modules"
 
 PanelWindow {
@@ -15,53 +14,37 @@ PanelWindow {
         right: true
     }
 
-    mask: Region {
-        item: dashboard
-    }
     implicitHeight: 30
 
     color: Colors.background
-    
-    property var modelData: SystemTray.items.values
 
-    Rectangle {
-        id: dashboard
+    RowLayout {
+        anchors.fill: parent
+        anchors.margins: 5
 
-        implicitHeight: modules.height + extraModules.height * extraModules.visible + 10
-        implicitWidth: modules.width + 10
-        anchors.right: parent.right
-
-        color: Colors.background
-
-        GridLayout {
-            id: extraModules
-            anchors.bottom: dashboard.bottom
+        Item {
+            Layout.fillWidth: true
         }
 
-        RowLayout {
-            id: modules
+        WrapperManager {
+            Brightness {}
+        }
 
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.top
-            anchors.verticalCenterOffset: this.height / 2 + 5
-            anchors.rightMargin: 5
+        WrapperManager {
+            Battery {}
+        }
 
-            WrapperManager {
-                Battery {}
+        WrapperManager {
+            Text {
+                text: Clock.time
+                color: Colors.text
+                font.family: "DepartureMono Nerd Font"
+                font.pixelSize: 13
             }
-            WrapperManager {
-                Clock {}
-            }
-            WrapperManager {
-                Repeater {
-                    model: root.modelData
-                    SysTrayItem {
-                        required property SystemTrayItem modelData
-                        bar: root
-                        item: modelData
-                    }
-                }
-            }
+        }
+
+        WrapperManager {
+            SystemTray {}
         }
     }
 }

@@ -1,30 +1,22 @@
-import QtQuick
-import QtQuick.Layouts
+import Quickshell
 import Quickshell.Services.SystemTray
-import Quickshell.Wayland
-import Quickshell.Widgets
+import QtQuick
 
 Item {
     id: root
 
-    required property var bar
+    implicitWidth: layout.implicitWidth
+    implicitHeight: layout.implicitHeight
 
-    implicitHeight: 24
-    implicitWidth: rowLayout.implicitWidth
-
-    RowLayout {
-        id: rowLayout
-
-        anchors.centerIn: parent
-        spacing: 15
+    Row {
+        id: layout
+        spacing: 5
 
         Repeater {
             model: SystemTray.items
 
-            SysTrayItem {
+            TrayItem {
                 required property SystemTrayItem modelData
-
-                bar: root.bar
                 item: modelData
             }
         }
